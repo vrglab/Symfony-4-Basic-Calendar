@@ -17,6 +17,7 @@ Encore
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
+    .enablePostCssLoader()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
 

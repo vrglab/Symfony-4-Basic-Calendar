@@ -10,7 +10,7 @@ class PageTest extends BasePage
 
     protected function template(): string
     {
-        return 'app.html.twig';
+        return 'calender.html.twig';
     }
 
     protected function injectionMap(): array
@@ -26,9 +26,6 @@ class PageTest extends BasePage
     }
 
 
-    /**
-     * @Route("/")
-     */
     public function index(): Response {
         return $this->renderPage();
     }

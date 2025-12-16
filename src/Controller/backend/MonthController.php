@@ -3,17 +3,35 @@
 namespace App\Controller\backend;
 
 use App\Entity\Month;
-use App\Service\DayService;
+use App\Service\MonthService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MonthController extends AbstractController
 {
-    private $dayService;
 
-    public function __construct(DayService $dayService) {
-        $this->dayService = $dayService;
+    public static $MONTH_DAY_MAPPING =
+    [
+        1 => 31,
+        2 => 28,
+        3 => 31,
+        4 => 30,
+        5 => 31,
+        6 => 30,
+        7 => 31,
+        8 => 31,
+        9 => 30,
+        10 => 31,
+        11 => 30,
+        12 => 31
+    ];
+
+
+    private $monthService;
+
+    public function __construct(MonthService $monthService) {
+        $this->monthService = $monthService;
     }
 
 
@@ -24,19 +42,10 @@ class MonthController extends AbstractController
     {
 
         $entityManager = $this->getDoctrine()->getManager();
-
-
-        $month = new Month();
-        $month->setMonth($monthNum);
-
-        $daysInMonth = 30;
-        for ($i = 1; $i <= $daysInMonth; $i++) {
-            $month->addDay($this->dayService->makeDay($i, $monthNum, false));
-        }
-
+        $month = $this->monthService->makeMonth($monthNum);
         $entityManager->persist($month);
         $entityManager->flush();
 
-        return new Response('Saved new month with id '. $month->getId());
+        return new Response('Saved new month with id '. $month->getId() . ' for month '. $monthNum . ' with days '. count($month->getDays()));
     }
 }

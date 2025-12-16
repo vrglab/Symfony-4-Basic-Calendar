@@ -19,12 +19,22 @@ class Month
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $month;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Day", mappedBy="month", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"date" = "ASC"})
      */
     private $days;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Year", inversedBy="months")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $year;
 
     public function __construct()
     {
@@ -53,6 +63,18 @@ class Month
     public function setMonth($month): void
     {
         $this->month = $month;
+    }
+
+
+    public function getYear(): ?Year
+    {
+        return $this->year;
+    }
+
+
+    public function setYear(Year $year): void
+    {
+        $this->year = $year;
     }
 
 

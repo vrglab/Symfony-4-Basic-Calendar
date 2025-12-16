@@ -1,0 +1,12 @@
+<div class="p-4 rounded-md
+    {% if day.weekendDay %}bg-red-200 dark:bg-red-600{% else %}bg-blue-200 dark:bg-blue-600{% endif %}
+    {% if day.getDate == currentDay.getDate and day.month == currentDay.month and day.month.year == currentDay.month.year %}
+        border-4 border-yellow-300 dark:border-yellow-500
+    {% else %}
+        border border-gray-400 dark:border-gray-700
+    {% endif %}
+">
+    <p class="font-bold text-center text-black dark:text-white">
+        {{ day.getDate }}
+    </p>
+</div>

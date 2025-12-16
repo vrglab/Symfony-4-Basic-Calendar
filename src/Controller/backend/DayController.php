@@ -28,10 +28,7 @@ class DayController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $day = $this->dayService->makeDay(1, 11, false);
 
-
-        $entityManager->persist($day);
         $entityManager->flush();
 
         return new Response('Saved new product with id '. $day->getId());

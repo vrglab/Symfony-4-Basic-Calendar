@@ -42,7 +42,7 @@ class Day
         $this->date = $date;
     }
 
-    public function getDate(): ?Month
+    public function getDate(): ?int
     {
         return $this->date;
     }
@@ -52,7 +52,7 @@ class Day
         return $this->month;
     }
 
-    public function setMonth($month): void
+    public function setMonth(Month $month): void
     {
         $this->month = $month;
     }

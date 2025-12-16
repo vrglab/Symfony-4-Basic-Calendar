@@ -18,10 +18,16 @@ abstract class BasePage extends AbstractController
 
     }
 
+    protected function asRender(): void
+    {
+
+    }
+
 
     protected function renderPage(): Response
     {
         $this->preRender();
+        $this->asRender();
         $resp = $this->render($this->template(), $this->injectionMap());
         $this->postRender();
         return $resp;
