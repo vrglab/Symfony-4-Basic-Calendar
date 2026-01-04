@@ -11,6 +11,7 @@ use App\Service\MonthService;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\YearService;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class CalenderMain extends BasePage
 {
@@ -74,6 +75,8 @@ class CalenderMain extends BasePage
     private $movingNext;
     private $movingLast;
 
+    private $activeTheme;
+
     protected function template(): string
     {
         return "calender.html.twig";
@@ -88,7 +91,8 @@ class CalenderMain extends BasePage
             CalenderMain::WATCHED_DAYS => $this->currentMonth->getDays(),
             CalenderMain::MOVING_MONTH => $this->currentMonth,
             CalenderMain::MOVING_YEAR => $this->currentYear,
-            CalenderMain::FIRST_WEEKDAY_OFFSET => $this->getFirstWeekdayOffset($this->currentMonth)
+            CalenderMain::FIRST_WEEKDAY_OFFSET => $this->getFirstWeekdayOffset($this->currentMonth),
+            "theme" => $this->activeTheme
         ];
 
         if (!isset($_COOKIE[CalenderMain::STATIC_CURRENT_YEAR]) || !isset($_COOKIE[CalenderMain::STATIC_CURRENT_MONTH])) {
@@ -238,27 +242,45 @@ class CalenderMain extends BasePage
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response {
+    public function index(Request $request): Response {
         $this->movingLast = false;
         $this->movingNext = false;
+        $this->activeTheme = $request->query->get('theme');
+
+        if(!$this->activeTheme) {
+            $this->activeTheme = "dark";
+        }
+
         return $this->renderPage();
     }
 
     /**
      * @Route("/next", name="calendar_next")
      */
-    public function nextMonth(): Response {
+    public function nextMonth(Request $request): Response {
         $this->movingLast = false;
         $this->movingNext = true;
+        $this->activeTheme = $request->query->get('theme');
+
+        if(!$this->activeTheme) {
+            $this->activeTheme = "dark";
+        }
+
         return $this->renderPage();
     }
 
     /**
      * @Route("/prev", name="calendar_prev")
      */
-    public function prevMonth(): Response {
+    public function prevMonth(Request $request): Response {
         $this->movingLast = true;
         $this->movingNext = false;
+        $this->activeTheme = $request->query->get('theme');
+
+        if(!$this->activeTheme) {
+            $this->activeTheme = "dark";
+        }
+
         return $this->renderPage();
     }
 }

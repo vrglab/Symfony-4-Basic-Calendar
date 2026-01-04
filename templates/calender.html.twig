@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html class="bg-white dark:bg-gray-900 dark">
+<html class="bg-white dark:bg-gray-900 {{ theme }}">
       <head>
        <meta charset="UTF-8">
 
@@ -25,9 +25,9 @@
                   <p class="text-6xl text-black dark:text-white">{{ ('current.month.' ~ movingMonth.month)|trans }}, {{ movingYear.year }}</p>
             </div>
             <div class="flex justify-center space-x-4 pt-3">
-                  <a href="{{ path('calendar_prev') }}" class="px-4 py-2 bg-amber-200 hover:bg-amber-400 text-black dark:text-white dark:bg-amber-500 dark:hover:bg-amber-700 font-bold rounded">{{ 'prev'|trans }}</a>
-                  <a href="{{ path('home') }}" class="px-4 py-2 bg-amber-200 hover:bg-amber-400 font-bold text-black dark:text-white dark:bg-amber-500 dark:hover:bg-amber-700 rounded">{{ 'current.txt'|trans }}</a>
-                  <a href="{{ path('calendar_next') }}" class="px-4 py-2 bg-amber-200 hover:bg-amber-400 text-black dark:text-white dark:bg-amber-500 dark:hover:bg-amber-700 font-bold rounded">{{ 'next'|trans }}</a>
+                  <a href="{{ path('calendar_prev', {theme: theme }) }}" class="px-4 py-2 bg-amber-200 hover:bg-amber-400 text-black dark:text-white dark:bg-amber-500 dark:hover:bg-amber-700 font-bold rounded">{{ 'prev'|trans }}</a>
+                  <a href="{{ path('home', {theme: theme }) }}" class="px-4 py-2 bg-amber-200 hover:bg-amber-400 font-bold text-black dark:text-white dark:bg-amber-500 dark:hover:bg-amber-700 rounded">{{ 'current.txt'|trans }}</a>
+                  <a href="{{ path('calendar_next', {theme: theme }) }}" class="px-4 py-2 bg-amber-200 hover:bg-amber-400 text-black dark:text-white dark:bg-amber-500 dark:hover:bg-amber-700 font-bold rounded">{{ 'next'|trans }}</a>
             </div>
             <div class="grid grid-cols-7 pt-10 gap-2">
 
